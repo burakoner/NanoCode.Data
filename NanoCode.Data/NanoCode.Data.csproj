@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>NanoCode.Data</PackageId>
+		<Authors>Burak Öner</Authors>
+		<Version>1.0.1</Version>
+		<FileVersion>1.0.1</FileVersion>
+		<PackageVersion>1.0.1</PackageVersion>
+		<AssemblyVersion>1.0.1</AssemblyVersion>
+		<Description>NanoCode Data Tools including Attributes, Converters, OTP, Security and more...</Description>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<PackageTags>NanoCode;Data;Attribute;Converter;OTP;TFA;Security</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<NeutralLanguage>en</NeutralLanguage>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageReleaseNotes>
+			Version 1.0.1 - 01 Sep 2022
+		</PackageReleaseNotes>
+		<PackageIcon>NanoCode.png</PackageIcon>
+		<PackageIconUrl />
+		<PackageProjectUrl>https://github.com/burakoner/NanoCode.Data</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/burakoner/NanoCode.Data</RepositoryUrl>
+	</PropertyGroup>
+	<ItemGroup>
+		<Folder Include="Icon\" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="Icon\NanoCode.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+	</ItemGroup>
+
+</Project>
