@@ -11,7 +11,7 @@ namespace NanoCode.Data.Security
         {
             // Action
             var json = JsonConvert.SerializeObject(data);
-            var encrypted = CryptoMethods.Encrypt(json, key);
+            var encrypted = Cryptology.Encrypt(json, key);
             var chunks = GenerateChunks(encrypted);
             // var md5 = Cryptology.Hash(json, Cryptology.HashType.MD5);
 
@@ -23,7 +23,7 @@ namespace NanoCode.Data.Security
         {
             // Action
             var encrypted = RecoverChunks(chunks, salt);
-            var decrypted = CryptoMethods.Decrypt(encrypted, key);
+            var decrypted = Cryptology.Decrypt(encrypted, key);
             var data = JsonConvert.DeserializeObject<T>(decrypted);
 
             // Return

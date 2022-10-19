@@ -6,16 +6,16 @@ using System.Text;
 
 namespace NanoCode.Data.OTP.Google
 {
-    public class Authenticator
+    public class GoogleAuthenticator
     {
         public static DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
         public TimeSpan DefaultClockDriftTolerance { get; set; }
         public bool UseManagedSha1Algorithm { get; set; }
         public bool TryUnmanagedAlgorithmOnFailure { get; set; }
 
-        public Authenticator() : this(true, true) { }
+        public GoogleAuthenticator() : this(true, true) { }
 
-        public Authenticator(bool useManagedSha1, bool useUnmanagedOnFail)
+        public GoogleAuthenticator(bool useManagedSha1, bool useUnmanagedOnFail)
         {
             DefaultClockDriftTolerance = TimeSpan.FromMinutes(2);
             UseManagedSha1Algorithm = useManagedSha1;
@@ -30,7 +30,7 @@ namespace NanoCode.Data.OTP.Google
         /// <param name="qrCodeWidth">QR Code Width</param>
         /// <param name="qrCodeHeight">QR Code Height</param>
         /// <returns>SetupCode object</returns>
-        public GAuthSetupCode GenerateSetupCode(string accountTitleNoSpaces, string accountSecretKey, int qrCodeWidth, int qrCodeHeight)
+        public GoogleSetupCode GenerateSetupCode(string accountTitleNoSpaces, string accountSecretKey, int qrCodeWidth, int qrCodeHeight)
         {
             return GenerateSetupCode(null, accountTitleNoSpaces, accountSecretKey, qrCodeWidth, qrCodeHeight);
         }
@@ -44,7 +44,7 @@ namespace NanoCode.Data.OTP.Google
         /// <param name="qrCodeWidth">QR Code Width</param>
         /// <param name="qrCodeHeight">QR Code Height</param>
         /// <returns>SetupCode object</returns>
-        public GAuthSetupCode GenerateSetupCode(string issuer, string accountTitleNoSpaces, string accountSecretKey, int qrCodeWidth, int qrCodeHeight)
+        public GoogleSetupCode GenerateSetupCode(string issuer, string accountTitleNoSpaces, string accountSecretKey, int qrCodeWidth, int qrCodeHeight)
         {
             return GenerateSetupCode(issuer, accountTitleNoSpaces, accountSecretKey, qrCodeWidth, qrCodeHeight, false);
         }
@@ -59,13 +59,13 @@ namespace NanoCode.Data.OTP.Google
         /// <param name="qrCodeHeight">QR Code Height</param>
         /// <param name="useHttps">Use HTTPS instead of HTTP</param>
         /// <returns>SetupCode object</returns>
-        public GAuthSetupCode GenerateSetupCode(string issuer, string accountTitleNoSpaces, string accountSecretKey, int qrCodeWidth, int qrCodeHeight, bool useHttps)
+        public GoogleSetupCode GenerateSetupCode(string issuer, string accountTitleNoSpaces, string accountSecretKey, int qrCodeWidth, int qrCodeHeight, bool useHttps)
         {
             if (accountTitleNoSpaces == null) { throw new NullReferenceException("Account Title is null"); }
 
             accountTitleNoSpaces = accountTitleNoSpaces.Replace(" ", "");
 
-            var sc = new GAuthSetupCode();
+            var sc = new GoogleSetupCode();
             sc.Account = accountTitleNoSpaces;
             sc.AccountSecretKey = accountSecretKey;
 

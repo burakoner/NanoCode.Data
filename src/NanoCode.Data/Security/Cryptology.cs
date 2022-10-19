@@ -1,12 +1,14 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 
 
 namespace NanoCode.Data.Security
 {
-    public static class CryptoMethods
+    public static class Cryptology
     {
         /// <summary>
         /// Encrypt a byte array into a byte array using a key and an IV 
@@ -440,6 +442,58 @@ namespace NanoCode.Data.Security
                 bytes[i / 2] = Convert.ToByte(hexInput.Substring(i, 2), 16);
             }
             return encoding.GetString(bytes);
+        }
+
+        public enum OneWayTicketHashType
+        {
+            Hexadecimal, AlphaNumeric, AlphaNumericWithSpecialChars
+        }
+
+        private static readonly char[] OneWayTicketHexadecimalChars = new[] {
+            '0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'
+        };
+        private static readonly char[] OneWayTicketAlphaNumericChars = new[] {
+            '0','1','2','3','4','5','6','7','8','9',
+            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+            'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
+        };
+        private static readonly char[] OneWayTicketAlphaNumericWithSpecialChars = new[] {
+            '0','1','2','3','4','5','6','7','8','9',
+            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+            'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+            '!','#','$','&','(',')','[',']','{','}','+','-','*','/','%','|','^','~','?',':','.',',',':',';','=','~'
+        };
+
+        public static string OneWayTicket(string password, OneWayTicketHashType type = OneWayTicketHashType.AlphaNumeric, int blockSize = 32)
+        {
+            if (string.IsNullOrWhiteSpace(password)) return string.Empty;
+            var bytes = Encoding.UTF8.GetBytes(password);
+            return OneWayTicket(bytes, type, blockSize);
+        }
+
+        public static string OneWayTicket(byte[] data, OneWayTicketHashType type = OneWayTicketHashType.AlphaNumeric, int blockSize = 32)
+        {
+            if (data == null || data.Length == 0) return string.Empty;
+
+            var seed = data.Sum(x => x) + data.Length;
+            var rand = new Random(seed);
+            var rest = blockSize - (data.Length % blockSize);
+
+            var chars = new char[0];
+            if (type == OneWayTicketHashType.Hexadecimal) chars = OneWayTicketHexadecimalChars;
+            else if (type == OneWayTicketHashType.AlphaNumeric) chars = OneWayTicketAlphaNumericChars;
+            else if (type == OneWayTicketHashType.AlphaNumericWithSpecialChars) chars = OneWayTicketAlphaNumericWithSpecialChars;
+
+            var sb = new StringBuilder();
+            for (var i = 0; i < data.Length + rest; i++)
+            {
+                var randomNumber = rand.Next(chars.Length);
+                var charValue = chars[randomNumber];
+
+                sb.Append(charValue);
+            }
+
+            return sb.ToString();
         }
     }
 }
