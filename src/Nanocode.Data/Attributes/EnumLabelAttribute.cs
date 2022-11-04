@@ -7,7 +7,6 @@ namespace Nanocode.Data.Attributes
     public class EnumLabelAttribute : Attribute
     {
         public static readonly EnumLabelAttribute Default = new EnumLabelAttribute();
-        private string label;
 
         public EnumLabelAttribute() : this(string.Empty)
         {
@@ -15,39 +14,18 @@ namespace Nanocode.Data.Attributes
 
         public EnumLabelAttribute(string label)
         {
-            this.label = label;
+            this.Label = label;
         }
 
-        public virtual string Label
-        {
-            get
-            {
-                return LabelValue;
-            }
-        }
-
-        public string LabelValue
-        {
-            get
-            {
-                return label;
-            }
-            set
-            {
-                label = value;
-            }
-        }
+        public string Label { get; set; }
 
         public override bool Equals(object obj)
         {
             if (obj == this)
-            {
                 return true;
-            }
 
             EnumLabelAttribute other = obj as EnumLabelAttribute;
-
-            return (other != null) && other.Label == Label;
+            return (other != null) && other.Label == this.Label;
         }
 
         public override int GetHashCode()
@@ -65,14 +43,14 @@ namespace Nanocode.Data.Attributes
     {
         public static string GetLabel(this Enum value)
         {
-            Type type = value.GetType();
+            var type = value.GetType();
             string name = Enum.GetName(type, value);
             if (name != null)
             {
-                FieldInfo field = type.GetField(name);
+                var field = type.GetField(name);
                 if (field != null)
                 {
-                    EnumLabelAttribute attr = Attribute.GetCustomAttribute(field, typeof(EnumLabelAttribute)) as EnumLabelAttribute;
+                    var attr = Attribute.GetCustomAttribute(field, typeof(EnumLabelAttribute)) as EnumLabelAttribute;
                     if (attr != null)
                     {
                         return attr.Label;
@@ -97,11 +75,8 @@ namespace Nanocode.Data.Attributes
             // Action
             foreach (T item in Enum.GetValues(typeof(T)))
             {
-                if (@this.Trim().Equals(item.GetLabel(), StringComparison.InvariantCultureIgnoreCase)
-                    || @this.Trim().Equals(item.GetLabel(), StringComparison.InvariantCultureIgnoreCase))
-                {
+                if (@this.Trim().Equals(item.GetLabel(), StringComparison.InvariantCultureIgnoreCase))
                     return item;
-                }
             }
 
             // Return Dummy
@@ -120,9 +95,7 @@ namespace Nanocode.Data.Attributes
                 int intValue = Convert.ToInt32(test);
 
                 if (@this == intValue)
-                {
                     return item;
-                }
             }
 
             // Return Dummy

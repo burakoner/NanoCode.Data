@@ -8,10 +8,10 @@
 	<PropertyGroup>
 		<PackageId>Nanocode.Data</PackageId>
 		<Authors>Burak Öner</Authors>
-		<Version>1.0.5</Version>
-		<FileVersion>1.0.5</FileVersion>
-		<PackageVersion>1.0.5</PackageVersion>
-		<AssemblyVersion>1.0.5</AssemblyVersion>
+		<Version>1.1.0</Version>
+		<FileVersion>1.1.0</FileVersion>
+		<PackageVersion>1.1.0</PackageVersion>
+		<AssemblyVersion>1.1.0</AssemblyVersion>
 		<Description>Nanocode Data Tools including Attributes, Converters, Diagnostics, IO, OTP, Security, Sequence, Validation and more...</Description>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageTags>Nanocode;Data;Attribute;Converter;Diagnostics;IO;OTP;TFA;Security;Sequence;Validation</PackageTags>
@@ -19,7 +19,7 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageReleaseNotes>
-			Version 1.0.5 - 03 Nov 2022
+			Version 1.1.0 - 04 Nov 2022
 		</PackageReleaseNotes>
 		<PackageIcon>Nanocode.png</PackageIcon>
 		<PackageIconUrl />

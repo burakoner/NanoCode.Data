@@ -399,3 +399,4 @@ FodyWeavers.xsd
 
 # 000
 000/
+.sonarqube/
